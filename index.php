@@ -12,16 +12,16 @@ function do_post_request($url, $data, $optional_headers = null)
   $ctx = stream_context_create($params);
   $fp = @fopen($url, 'rb', false, $ctx);
   if (!$fp) {
-    throw new Exception("Problem with $url, $php_errormsg");
+    throw new Exception("Problem with $url");
   }
   $response = @stream_get_contents($fp);
   if ($response === false) {
-    throw new Exception("Problem reading data from $url, $php_errormsg");
+    throw new Exception("Problem reading data from $url");
   }
   return $response;
 }
 $url="www.google.com";
-$data=array('test'=>'test');
+$data='test';
 $result=do_post_request($url, $data, $optional_headers = null);
 print_r($result);
 ?>
