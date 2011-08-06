@@ -20,7 +20,7 @@ function do_post_request($url, $data, $optional_headers = null)
   }
   return $response;
 }
-$url="www.google.com";
+$url="http://www.indianrail.gov.in/cgi_bin/inet_pnrstat_cgi.cgi";
 $data='test';
 $result=do_post_request($url, $data, $optional_headers = null);
 print_r($result);
