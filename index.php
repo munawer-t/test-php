@@ -20,8 +20,8 @@ function do_post_request($url, $data, $optional_headers = null)
   }
   return $response;
 }
-$url="www.ggogle.com";
+$url="www.google.com";
 $data=array('test'=>'test');
-do_post_request($url, $data, $optional_headers = null);
-
+$result=do_post_request($url, $data, $optional_headers = null);
+print_r($result);
 ?>
