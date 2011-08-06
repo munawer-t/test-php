@@ -1,30 +1,27 @@
 <? 
 echo "Welcome to My Area - -- hey";
-echo $url = 'http://www.indianrail.gov.in/cgi_bin/inet_pnrstat_cgi.cgi';
-$fields = array(
-            'lname'=>urlencode($last_name),
-            'fname'=>urlencode($first_name),
-            'title'=>urlencode($title),
-            'company'=>urlencode($institution),
-            'age'=>urlencode($age),
-            'email'=>urlencode($email),
-            'phone'=>urlencode($phone)
-        );
+function do_post_request($url, $data, $optional_headers = null)
+{
+  $params = array('http' => array(
+              'method' => 'POST',
+              'content' => $data
+            ));
+  if ($optional_headers !== null) {
+    $params['http']['header'] = $optional_headers;
+  }
+  $ctx = stream_context_create($params);
+  $fp = @fopen($url, 'rb', false, $ctx);
+  if (!$fp) {
+    throw new Exception("Problem with $url, $php_errormsg");
+  }
+  $response = @stream_get_contents($fp);
+  if ($response === false) {
+    throw new Exception("Problem reading data from $url, $php_errormsg");
+  }
+  return $response;
+}
+$url="www.ggogle.com";
+$data=array('test'=>'test');
+do_post_request($url, $data, $optional_headers = null);
 
-//url-ify the data for the POST
-foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-rtrim($fields_string,'&');
-
-//open connection
-$ch = curl_init();
-
-//set the url, number of POST vars, POST data
-curl_setopt($ch,CURLOPT_URL,$url);
-curl_setopt($ch,CURLOPT_POST,count($fields));
-curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
-
-//execute post
-$result = curl_exec($ch);
-
-echo $result;
 ?>
