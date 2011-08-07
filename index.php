@@ -21,7 +21,7 @@ function do_post_request($url, $data, $optional_headers = null)
   return $response;
 }
 $url="http://www.indianrail.gov.in/cgi_bin/inet_pnrstat_cgi.cgi";
-$data='test';
+$data=array('lccp_pnrno1'=>'433','lccp_pnrno2'=>'123123');
 $result=do_post_request($url, $data, $optional_headers = null);
 print_r($result);
 ?>
